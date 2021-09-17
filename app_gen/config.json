@@ -1,0 +1,13 @@
+{
+    "topic_size":20,
+    "destination_port":5001,
+    "destination_ip":"localhost",
+    "protocol":"MQTT",
+    "display_graph": true,
+    "hierarchy":{
+        "dist_type":"poisson",
+        "dist":[1,2,2,2],
+        "lambda": 4,
+        "k":8
+    }
+}

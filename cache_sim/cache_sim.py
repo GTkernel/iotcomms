@@ -1,15 +1,12 @@
+import sys
+sys.path.insert(0, 'C:/Users/rafae/OneDrive/Desktop/Vasado/SIM/IoTCOMMs/app_gen')
+
+from app_gen import Node , APP
 from collections import OrderedDict
 import string
 import random
 import graphviz
 import numpy as np
-
-class Node:
-    def __init__(self, data , topic):
-        self.data = data
-        self.topic = topic
-        self.parent = None
-        self.children = []
 
 class LRUCache:
  
@@ -92,55 +89,6 @@ class CacheController:
             for stat_type in value:
                 print(cache , stat_type)
 
-class APP():
-    
-    def __init__(self, app_distro , topic_size):
-        
-        self.app = []
-        self.letters = string.ascii_lowercase
-        self.app_distro = app_distro
-        self.root = Node("" , "city")
-        self.n_topics = 0
-        self.devices = []
-        self.topic_size = topic_size
-        self.gen_app(self.root , 1)
-        
-        
-    
-    def gen_app(self , node, k):
-        
-        if k + 1 > (len(self.app_distro) -1):
-            return
-        
-        for j in range(self.app_distro[k]):
-            node.children.append(Node("" , ''.join(random.choice(self.letters) for i in range(self.topic_size))))
-            node.children[j].parent = node
-           
-            if k == (len(self.app_distro) - 2):
-                
-                n_dev = self.app_distro[k+1].pop()
-                for shizzle in range(n_dev):
-                    self.devices.append(Node("" , ''.join(random.choice(self.letters) for i in range(self.topic_size))))
-                    self.devices[len(self.devices) - 1].parent = node.children[j]
-                    node.children[j].children.append(self.devices[len(self.devices) - 1])
-            self.gen_app(node.children[j] , k+1)
-            
-            
-        
-    def print_tree(self , node):
-        
-        for i in range(len(node.children) -1):
-            self.print_tree(node.children[i])
-            self.n_topics = self.n_topics + 1
-    
-    def compose_topic(self, dev):
-        node = dev
-        topic = dev.topic
-        node = dev.parent
-        while node:
-            topic = node.topic + "/" + topic
-            node = node.parent
-        return topic
 
 def print_tree(node , dot):
     if len(node.children) == 0:
@@ -154,32 +102,3 @@ def print_tree(node , dot):
 
 cache_controller = CacheController(10 , 100) 
 
-a1 = 1
-a2 = 2
-a3  = 2
-a4 = 2
-app = APP([a1 , a2 , a3 , a4, np.random.poisson(lam=4 , size=(a4*a3*a2)).tolist()] , 20)
-
-
-dot = graphviz.Digraph(comment='Normal')
-#dot.graph_attr['rankdir'] = 'LR'
-
-print_tree(app.root, dot)
-
-dot.render('test-output/round-table.gv', view=True) 
-
-
-topic_indexes = []
-
-for i in range(len(app.devices) -1):
-    topic_indexes.append(i)
-
-
-
-for i in range(1000):
-    random.shuffle(topic_indexes)
-    for dev_index in topic_indexes:
-        topic = app.compose_topic(app.devices[dev_index])
-        cache_controller.FE2HASH(topic)
-
-cache_controller.print_stats()
