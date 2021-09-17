@@ -1,7 +1,7 @@
 # iotcomms
 Benchmarking for emerging IoT application​ Benchmarks and Metrics​
 
-# Please note this work is a working in progress
+# Please note that this work is a working in progress
 
 # Description
 
