@@ -7,7 +7,7 @@ Benchmarking for emerging IoT application​ Benchmarks and Metrics​
 
 The variety of different sensors, transport protocols and compute kernels involved in a single IoT applications impose a very challenging scenario for whoever decides to venture in this realm. That is because properly simulating IoT workload alone requires a lot of effort.
 
-This framework aims to ease this burden. It allows users to quickly developt different IoT workloads, with different data rates even within the same application. To accomplish this, IoTCOMMS takes a probability distribution as input and generates patterns and hierarchical IoT structions that best simulates message rates coming from different sections of the applications.
+This framework aims to ease this burden. It allows users to quickly developt different IoT workloads, with different data rates even within the same application. To accomplish this, IoTCOMMS takes a probability distribution as input and generates patterns and hierarchical IoT structures that best simulate message rates coming from different sections of the applications.
 
 # Setup and Configuration /app_gen/config.json
 
